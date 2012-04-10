@@ -2,6 +2,8 @@ package nl.kaninefaten.cassandra.tutorial.t5;
 
 import java.util.ArrayList;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+
 /**
  * Example object for demonstration purposes.
  * 
@@ -62,6 +64,10 @@ public class ExampleModelObject {
 			}
 		}
 		return builder.toString();
+	}
+
+	public boolean equals(Object obj) {
+	   return EqualsBuilder.reflectionEquals(this, obj);
 	}
 	
 	/**

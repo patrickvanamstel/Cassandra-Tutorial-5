@@ -118,11 +118,11 @@ public class CassandraSliceTest  {
 	public void testInsertTestDataSet() {
 		CassandraDatasetLoader loader =  new CassandraDatasetLoader();
 		try {
-			loader.iterator(CassandraDatasetLoader.dataFile);
+			loader.iterator(CassandraDatasetCreator.datasetFileHandler());
 		} catch (IOException e) {
 			fail(e.toString());
 		}
-		for (ExampleModelObject object : CassandraDatasetLoader.exampleModelObjectList){
+		for (ExampleModelObject object : CassandraDatasetLoader.getExampleModelObjectList()){
 			Mutator<String> mutator = HFactory.createMutator(keyspace, stringSerializer);
 			mutator.addInsertion(object.getKey(), columnFamilyName, HFactory.createStringColumn("firstName", object.getFirstName()));
 			mutator.addInsertion(object.getKey(), columnFamilyName, HFactory.createStringColumn("middleName", object.getMiddleName()));
@@ -143,7 +143,7 @@ public class CassandraSliceTest  {
 	@Test
 	public void testReadRow() {
 		
-		for (ExampleModelObject object : CassandraDatasetLoader.exampleModelObjectList){
+		for (ExampleModelObject object : CassandraDatasetLoader.getExampleModelObjectList()){
 			// Create query to fetch a result
 			SliceQuery<String, String, Object> result = HFactory.createSliceQuery(keyspace, stringSerializer, stringSerializer, objectSerializer);
 			result.setColumnFamily(columnFamilyName);

@@ -9,18 +9,20 @@ import java.util.ArrayList;
 
 
 /**
+ * Loads a sets of ExampleModelObject in memory.
+ * <p>
+ * Note:
+ * This is a test class.
  * 
+ *  
  * @author Patrick van Amstel
  * @date 2012 04 05
  *
  */
 public class CassandraDatasetLoader {
+	
+	private static ArrayList<ExampleModelObject> _exampleModelObjectList = new ArrayList<ExampleModelObject>();
 
-	
-	public static File dataFile = new File("/media/WerkDrive/Projects/Anachron/research/cassandra/Cassandra-Tutorial-5/src/test/cassandra-testset.txt");
-	
-	public static ArrayList<ExampleModelObject> exampleModelObjectList = new ArrayList<ExampleModelObject>();
-	
 	public void iterator(File file) throws IOException{
 		FileInputStream input = null;
 		try
@@ -34,13 +36,12 @@ public class CassandraDatasetLoader {
 		}
 	}
 	
-	public void iterator(InputStream inputStream) throws IOException{
+	public void iterator(InputStream inputStream) throws IOException {
 		InputStreamReader reader = new InputStreamReader(inputStream, "UTF-8");
-		char [] c = new char[1];
+		char[] c = new char[1];
 		StringBuilder builder = new StringBuilder();
-		while(reader.read(c) > -1){
-			//System.out.println(c[0]);
-			if (c[0] == '\n'){
+		while (reader.read(c) > -1) {
+			if (c[0] == '\n') {
 				processLine(builder.toString());
 				builder = new StringBuilder();
 				continue;
@@ -49,29 +50,20 @@ public class CassandraDatasetLoader {
 		}
 		processLine(builder.toString());
 	}
-	
-	
+
 	private void processLine(String lineRecord) {
-		if (lineRecord == null || lineRecord.equals("")){
+		if (lineRecord == null || lineRecord.equals("")) {
 			return;
 		}
-		
-		ExampleModelObject object = ExampleModelObject.fromTabString(lineRecord); 
-		exampleModelObjectList.add(object);
-	
+
+		ExampleModelObject object = ExampleModelObject
+				.fromTabString(lineRecord);
+		_exampleModelObjectList.add(object);
+
 	}
 
-
-
-	public static void main (String [] args){
-		CassandraDatasetLoader loader = new CassandraDatasetLoader();
-		try {
-			loader.iterator(dataFile);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public static ArrayList<ExampleModelObject> getExampleModelObjectList() {
+		return _exampleModelObjectList;
 	}
 	
 }
