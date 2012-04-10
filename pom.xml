@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nl.kaninefaten.cassandra.tutorial</groupId>
 	<artifactId>Cassandra-Tutorial-5</artifactId>
-	<version>1.0</version>
+	<version>1.1-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:patrickvanamstel/Cassandra-Tutorial-5.git</connection>
